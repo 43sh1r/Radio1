@@ -1,178 +1,63 @@
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
+class RadioTest {
+    Radio radio = new Radio();
 
-
-public class RadioTest {
-
-    @Test
-    public void testStation1() {
-        Radio radio = new Radio();
-        radio.setStation(8);
-
-        radio.next();
-
-        int actual = radio.getStation();
-        int expected = 9;
+    @ParameterizedTest()
+    @CsvFileSource(files="src/test/resources/nextStation.csv")
+    void shouldSetNextStation(String name, int station, int expected) {
+        radio.setCurrentStation(station);
+        radio.nextStation();
+        int actual = radio.getCurrentStation();
 
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    public void testStation2() {
-        Radio radio = new Radio();
-        radio.setStation(9);
-
-        radio.next();
-
-        int actual = radio.getStation();
-        int expected = 0;
+    @ParameterizedTest()
+    @CsvFileSource(files="src/test/resources/prevStation.csv")
+    void shouldSetPrevStation(String name, int station, int expected) {
+        radio.setCurrentStation(station);
+        radio.prevStation();
+        int actual = radio.getCurrentStation();
 
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    public void testStation3() {
-        Radio radio = new Radio();
-        radio.setStation(0);
-
-        radio.prev();
-
-        int actual = radio.getStation();
-        int expected = 9;
+    @ParameterizedTest()
+    @CsvFileSource(files="src/test/resources/setStation.csv")
+    void shouldSetStation(String name, int station, int expected) {
+        radio.setCurrentStation(station);
+        int actual = radio.getCurrentStation();
 
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    public void testStation4() {
-        Radio radio = new Radio();
-        radio.setStation(1);
-
-        radio.prev();
-
-        int actual = radio.getStation();
-        int expected = 0;
+    @ParameterizedTest()
+    @CsvFileSource(files="src/test/resources/increaseVolume.csv")
+    void shouldIncreaseVolume(String name, int volume, int expected) {
+        radio.setCurrentVolume(volume);
+        radio.increaseTheSoundVolumeLevel();
+        int actual = radio.getCurrentVolume();
 
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    public void testVolume1() {
-        Radio radio = new Radio();
-        radio.setVolume(9);
-
-        radio.up();
-
-        int actual = radio.getVolume();
-        int expected = 10;
+    @ParameterizedTest()
+    @CsvFileSource(files="src/test/resources/decreaseVolume.csv")
+    void shouldDecreaseVolume(String name, int volume, int expected) {
+        radio.setCurrentVolume(volume);
+        radio.reduceTheSoundVolumeLevel();
+        int actual = radio.getCurrentVolume();
 
         Assertions.assertEquals(expected, actual);
     }
 
-    @Test
-    public void testVolume2() {
-        Radio radio = new Radio();
-        radio.setVolume(10);
-
-        radio.up();
-
-        int actual = radio.getVolume();
-        int expected = 10;
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testVolume3() {
-        Radio radio = new Radio();
-        radio.setVolume(1);
-
-        radio.down();
-
-        int actual = radio.getVolume();
-        int expected = 0;
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void testVolume4() {
-        Radio radio = new Radio();
-        radio.setVolume(0);
-
-        radio.down();
-
-        int actual = radio.getVolume();
-        int expected = 0;
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void setStation() {
-        Radio radio = new Radio();
-        radio.setStation(1);
-
-        int actual = radio.getStation();
-        int expected = 1;
-
-        Assertions.assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void setStationWrong() {
-        Radio radio = new Radio();
-        radio.setStation(11);
-
-        int actual = radio.getStation();
-        int expected = 0;
-
-        Assertions.assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void setStationWrong2() {
-        Radio radio = new Radio();
-        radio.setStation(-1);
-
-        int actual = radio.getStation();
-        int expected = 0;
-
-        Assertions.assertEquals(expected, actual);
-
-    }
-
-    @Test
-    public void setVolume() {
-        Radio radio = new Radio();
-        radio.setVolume(1);
-
-        int actual = radio.getVolume();
-        int expected = 1;
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void setVolumeWrong() {
-        Radio radio = new Radio();
-        radio.setVolume(11);
-
-        int actual = radio.getVolume();
-        int expected = 0;
-
-        Assertions.assertEquals(expected, actual);
-    }
-
-    @Test
-    public void setVolumeWrong2() {
-        Radio radio = new Radio();
-        radio.setVolume(-1);
-
-        int actual = radio.getVolume();
-        int expected = 0;
+    @ParameterizedTest()
+    @CsvFileSource(files="src/test/resources/setCurrentVolume.csv")
+    void shouldSetCurrentVolume(String name, int volume, int expected) {
+        radio.setCurrentVolume(volume);
+        int actual = radio.getCurrentVolume();
 
         Assertions.assertEquals(expected, actual);
     }
