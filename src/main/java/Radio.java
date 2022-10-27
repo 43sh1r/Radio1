@@ -1,67 +1,64 @@
 public class Radio {
-    private int station;
-    private int volume;
+    private int currentStation;
+    private int currentVolume;
+    public int minVolume = 0;
+    public int maxVolume = 10;
+    public int firstStation = 0;
+    public int lastStation = 9;
 
-    public int getStation() {
-        return station;
-    }
-
-    public void setStation(int newStation) {
-        if (newStation < 0) {
-            return;
-        }
-        if (newStation > 9) {
-            return;
-        }
-        station = newStation;
-
-    }
-
-    public int getVolume() {
-        return volume;
-    }
-
-    public void setVolume(int newVolume) {
-        if (newVolume < 0) {
-            return;
-        }
-        if (newVolume > 10) {
-            return;
-        }
-        volume = newVolume;
-    }
-
-
-    public void next() {
-        if (station < 9) {
-            station++;
+    public void nextStation() {
+        if (currentStation < lastStation) {
+            currentStation++;
         } else {
-            station = 0;
+            currentStation = firstStation;
         }
     }
 
-    public void prev() {
-        if (station > 0) {
-            station--;
+    public void prevStation() {
+        if (currentStation > firstStation) {
+            currentStation--;
         } else {
-            station = 9;
+            currentStation = lastStation;
         }
     }
 
-    public void up() {
-        if (volume < 10) {
-            volume++;
-        } else {
+    public int getCurrentStation() {
+        return currentStation;
+    }
+
+    public void setCurrentStation(int currentStation) {
+        if (currentStation < firstStation) {
             return;
         }
+        if (currentStation > lastStation) {
+            return;
+        }
+        this.currentStation = currentStation;
     }
 
-    public void down() {
-        if (volume > 0) {
-            volume--;
-        } else {
+    public int getCurrentVolume() {
+        return currentVolume;
+    }
+
+    public void setCurrentVolume(int currentVolume) {
+        if (currentVolume < minVolume) {
             return;
+        }
+        if (currentVolume > maxVolume) {
+            return;
+        }
+        this.currentVolume = currentVolume;
+    }
+
+    public void increaseTheSoundVolumeLevel() {
+        if (currentVolume < maxVolume) {
+            currentVolume++;
         }
     }
 
+    public void reduceTheSoundVolumeLevel() {
+        if (currentVolume > minVolume) {
+            currentVolume--;
+        }
+    }
 }
